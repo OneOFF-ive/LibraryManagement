@@ -4,11 +4,7 @@ import org.apache.commons.cli.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
-@FunctionalInterface
-interface Function<T, R> {
-    R apply(T t);
-}
+import java.util.function.Function;
 
 public class MyCli {
     private final Options options;
