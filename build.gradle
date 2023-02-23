@@ -1,5 +1,3 @@
-import java.nio.channels.FileLock
-
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
@@ -10,6 +8,7 @@ group 'com.five'
 version '1.0'
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven {
         url 'https://www.jitpack.io'
@@ -21,6 +20,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
     // https://mvnrepository.com/artifact/commons-cli/commons-cli
     implementation 'commons-cli:commons-cli:1.5.0'
+    implementation 'com.github.OneOFF-ive:commons-cli-OneFive:v2.0.0'
 }
 
 application {

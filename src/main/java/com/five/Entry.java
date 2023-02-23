@@ -1,5 +1,6 @@
 package com.five;
 
+import com.OneFive.MyCli;
 import org.apache.commons.cli.*;
 
 import java.util.Arrays;
@@ -8,7 +9,7 @@ import java.util.Arrays;
 public class Entry {
     public static void main(String[] args) throws ParseException {
         MyCli myCli = MyCli.getInstance();
-
+// interact
         Option addBookOpt = defineAddOpt();
         Option delBookOpt = defineDelOpt();
         Option seekBookOpt = defineSeekOpt();
@@ -20,7 +21,7 @@ public class Entry {
             System.out.println(Arrays.toString(values));
         });
 
-        myCli.parseCommandLine(args);
+        myCli.parseAllOptions(args);
     }
 
     void registerFunction(Option[] options, MyCli myCli) {
