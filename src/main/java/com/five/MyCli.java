@@ -4,13 +4,13 @@ import org.apache.commons.cli.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 public class MyCli {
     private final Options options;
     private final CommandLineParser parser;
     private CommandLine line;
-    private final Map<Option, Function<Object[], Object>> functionMap;
+    private final Map<Option, Consumer<Object[]>> functionMap;
 
     private MyCli() {
         options = new Options();
@@ -24,7 +24,7 @@ public class MyCli {
         return instance;
     }
 
-    void addOption(Option option, Function<Object[], Object> callback) {
+    void addOption(Option option, Consumer<Object[]> callback) {
         options.addOption(option);
         functionMap.put(option, callback);
     }
@@ -34,7 +34,7 @@ public class MyCli {
         functionMap.forEach((opt, callback) -> {
             if (line.hasOption(opt.getOpt())) {
                 String[] values = line.getOptionValues(opt);
-                callback.apply(values);
+                callback.accept(values);
             }
         });
     }

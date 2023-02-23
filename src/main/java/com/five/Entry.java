@@ -7,16 +7,18 @@ import java.util.Arrays;
 
 public class Entry {
     public static void main(String[] args) throws ParseException {
-        Option[] options = {defineAddOpt(), defineDelOpt(), defineSeekOpt(), defineRentOpt(), defineReturnOpt(), defineHelpOpt()};
-
         MyCli myCli = MyCli.getInstance();
 
-        for (var option:options) {
-            myCli.addOption(option, (values)->{
-                System.out.println(Arrays.toString(values));
-                return null;
-            });
-        }
+        Option addBookOpt = defineAddOpt();
+        Option delBookOpt = defineDelOpt();
+        Option seekBookOpt = defineSeekOpt();
+        Option rentBookOpt = defineRentOpt();
+        Option returnBookOpt = defineReturnOpt();
+        Option helpOpt = defineHelpOpt();
+
+        myCli.addOption(addBookOpt, (values)->{
+            System.out.println(Arrays.toString(values));
+        });
 
         myCli.parseCommandLine(args);
     }
@@ -24,7 +26,6 @@ public class Entry {
     void registerFunction(Option[] options, MyCli myCli) {
         myCli.addOption(options[0], (values) -> {
             System.out.println(Arrays.toString(values));
-            return null;
         });
     }
 
