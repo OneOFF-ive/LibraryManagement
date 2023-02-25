@@ -11,11 +11,13 @@ import java.util.*;
 public class MyCliHandle {
     private MyCli myCli;
     private final List<Book> dataList;
+    private boolean shouldQuit;
 
 
     public MyCliHandle(MyCli myCli, List<Book> dataList) {
         this.myCli = myCli;
         this.dataList = dataList;
+        shouldQuit = false;
     }
 
     public MyCli getMyCli() {
@@ -32,11 +34,11 @@ public class MyCliHandle {
 
     void initMyCli() {
         // -a/addBook <title> <isbn> <author> <amount>
-        myCli.addOption(defineAddOpt(), (values) -> {
-            System.out.printf("add a book %s%n", Arrays.toString(values));
+        myCli.addOption(defineAddOpt(), (Object[] args) -> {
+            System.out.printf("add a book %s%n", Arrays.toString(args));
 
-            String isbn = values[1].toString();
-            Integer amount = Integer.parseInt(values[3].toString());
+            String isbn = args[1].toString();
+            Integer amount = Integer.parseInt(args[3].toString());
             var iter = dataList.iterator();
             boolean isHasBook = false;
             while (iter.hasNext()) {
@@ -49,24 +51,29 @@ public class MyCliHandle {
                 }
             }
             if (!isHasBook) {
-                Book book = new Book(values[0].toString(), values[1].toString(), values[2].toString(), amount, amount);
+                Book book = new Book(args[0].toString(), args[1].toString(), args[2].toString(), amount, amount);
                 dataList.add(book);
             }
 
         });
 
         // -d/delBook <isbn>
-        myCli.addOption(defineDelOpt(), (values) -> {
-            System.out.printf("del a book %s%n", Arrays.toString(values));
+        myCli.addOption(defineDelOpt(), (Object[] args) -> {
+            System.out.printf("del a book %s%n", Arrays.toString(args));
+
+            Integer amount = (args.length == 2) ? Integer.parseInt(args[1].toString()) : 0;
+
             var iter = dataList.iterator();
             while (iter.hasNext()) {
                 var book = iter.next();
-                if (book.getIsbn().equals(values[0].toString())) {
-                    if (!Objects.equals(book.getCurrentAmount(), book.getTotalAmount())) {
-                        System.out.println("can't delete the book(current amount != total amount)");
-                    }
-                    else {
+                if (book.getIsbn().equals(args[0].toString())) {
+                    if (amount.equals(0) && Objects.equals(book.getCurrentAmount(), book.getTotalAmount())) {
                         iter.remove();
+                    } else if (book.getCurrentAmount() > amount) {
+                        book.setTotalAmount(book.getTotalAmount() - amount);
+                        book.setCurrentAmount(book.getCurrentAmount() - amount);
+                    } else {
+                        System.out.println("can't delete book");
                     }
                     break;
                 }
@@ -74,10 +81,10 @@ public class MyCliHandle {
         });
 
         // -s/seekBook <title/isbn>
-        myCli.addOption(defineSeekOpt(), (values) -> {
-            System.out.printf("seek a book %s%n", Arrays.toString(values));
+        myCli.addOption(defineSeekOpt(), (Object[] args) -> {
+            System.out.printf("seek a book %s%n", Arrays.toString(args));
 
-            String info = values[0].toString();
+            String info = args[0].toString();
             for (Book book : dataList) {
                 if (book.getTitle().equals(info) || book.getIsbn().equals(info)) {
                     System.out.println(book);
@@ -87,20 +94,55 @@ public class MyCliHandle {
         });
 
         // -rt/returnBook <isbn>
-        myCli.addOption(defineReturnOpt(), (values) -> {
-            System.out.printf("return a book %s%n", Arrays.toString(values));
+        myCli.addOption(defineReturnOpt(), (Object[] args) -> {
+            System.out.printf("return a book %s%n", Arrays.toString(args));
+
+            for (Book book : dataList) {
+                if (book.getIsbn().equals(args[0].toString()) && book.getCurrentAmount() < book.getTotalAmount()) {
+                    book.setCurrentAmount(book.getCurrentAmount() + 1);
+                    break;
+                }
+            }
+
         });
 
         // -r/rentBook <isbn>
-        myCli.addOption(defineRentOpt(), (values) -> {
-            System.out.printf("rent a book %s%n", Arrays.toString(values));
+        myCli.addOption(defineRentOpt(), (Object[] args) -> {
+            System.out.printf("rent a book %s%n", Arrays.toString(args));
+
+            for (Book book : dataList) {
+                if (book.getIsbn().equals(args[0].toString()) && book.getCurrentAmount() > 0) {
+                    book.setCurrentAmount(book.getCurrentAmount() - 1);
+                    break;
+                }
+            }
+
         });
 
         // -h/help
-        myCli.addOption(defineHelpOpt(), (values) -> {
+        myCli.addOption(defineHelpOpt(), (Object[] args) -> {
             HelpFormatter formatter = new HelpFormatter();
             Options options = myCli.getOptions();
             formatter.printHelp("ant", options);
+        });
+
+        myCli.addOption(defineEnterOpt(), (Object[] args) -> {
+            Scanner scanner = new Scanner(System.in);
+
+            while (!shouldQuit) {
+                String input = scanner.nextLine();
+                String[] newArgs = input.split(" ");
+                try {
+                    myCli.parseAllOptions(newArgs);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        });
+
+        myCli.addOption(defineQuitOpt(), (Object[] args) -> {
+            shouldQuit = true;
         });
     }
 
@@ -118,8 +160,8 @@ public class MyCliHandle {
     public static Option defineDelOpt() {
         return Option.builder("d")
                 .longOpt("delBook")
-                .argName("isbn>")
-                .hasArg()
+                .argName("isbn [amount]")
+                .hasArgs()
                 .desc("del a book from library")
                 .build();
     }
@@ -127,7 +169,7 @@ public class MyCliHandle {
     public static Option defineSeekOpt() {
         return Option.builder("s")
                 .longOpt("seekBook")
-                .argName("title>")
+                .argName("title")
                 .hasArg()
                 .desc("Seek a book from library")
                 .build();
@@ -136,7 +178,7 @@ public class MyCliHandle {
     public static Option defineRentOpt() {
         return Option.builder("r")
                 .longOpt("rentBook")
-                .argName("isbn>")
+                .argName("isbn")
                 .hasArg()
                 .desc("Rent a book from library")
                 .build();
@@ -145,7 +187,7 @@ public class MyCliHandle {
     public static Option defineReturnOpt() {
         return Option.builder("rt")
                 .longOpt("ReturnBook")
-                .argName("isbn>")
+                .argName("isbn")
                 .hasArg()
                 .desc("Return a book for library")
                 .build();
@@ -153,5 +195,13 @@ public class MyCliHandle {
 
     public static Option defineHelpOpt() {
         return new Option("h", "help", false, "print help message");
+    }
+
+    public static Option defineEnterOpt() {
+        return new Option("e", "enter", false, "enter interactive interface");
+    }
+
+    public static Option defineQuitOpt() {
+        return new Option("q", "quit", false, "quit interactive interface");
     }
 }
