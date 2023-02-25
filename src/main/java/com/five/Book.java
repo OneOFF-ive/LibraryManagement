@@ -65,4 +65,15 @@ public class Book {
     public void setCurrentAmount(Integer currentAmount) {
         this.currentAmount = currentAmount;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", author='" + author + '\'' +
+                ", totalAmount=" + totalAmount +
+                ", currentAmount=" + currentAmount +
+                '}';
+    }
 }

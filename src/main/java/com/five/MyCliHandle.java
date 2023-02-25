@@ -62,15 +62,28 @@ public class MyCliHandle {
             while (iter.hasNext()) {
                 var book = iter.next();
                 if (book.getIsbn().equals(values[0].toString())) {
-                    iter.remove();
+                    if (!Objects.equals(book.getCurrentAmount(), book.getTotalAmount())) {
+                        System.out.println("can't delete the book(current amount != total amount)");
+                    }
+                    else {
+                        iter.remove();
+                    }
                     break;
                 }
             }
         });
 
-        // -s/seekBook <title>
+        // -s/seekBook <title/isbn>
         myCli.addOption(defineSeekOpt(), (values) -> {
             System.out.printf("seek a book %s%n", Arrays.toString(values));
+
+            String info = values[0].toString();
+            for (Book book : dataList) {
+                if (book.getTitle().equals(info) || book.getIsbn().equals(info)) {
+                    System.out.println(book);
+                }
+            }
+
         });
 
         // -rt/returnBook <isbn>
