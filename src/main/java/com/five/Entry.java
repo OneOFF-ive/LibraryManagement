@@ -10,17 +10,23 @@ import java.util.Arrays;
 
 
 public class Entry {
-    public static void main(String[] args) throws ParseException, IOException {
+    public static void main(String[] args){
+
         MyCli myCli = MyCli.getInstance();
-
         JsonHandle<Book> jsonHandle = new JsonHandle<>("library.json");
-        jsonHandle.readData();
 
-        MyCliHandle myCliHandle = new MyCliHandle(myCli, jsonHandle.getDataList());
-        myCliHandle.initMyCli();
-        myCli.parseAllOptions(args);
+        try {
+            jsonHandle.readData();
 
-        jsonHandle.saveData();
+            MyCliHandle myCliHandle = new MyCliHandle(myCli, jsonHandle.getDataList());
+            myCliHandle.initMyCli();
+            myCliHandle.parseAllOptions(args);
+
+            jsonHandle.saveData();
+        } catch (IOException | ParseException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }

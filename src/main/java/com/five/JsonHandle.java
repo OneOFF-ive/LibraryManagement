@@ -6,11 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JsonHandle<T> {
     private final File jsonFile;
-    private List<T> dataList;
+    private ArrayList<T> dataList;
 
     public JsonHandle(String filePath) {
         jsonFile = new File(filePath);
@@ -19,8 +20,14 @@ public class JsonHandle<T> {
     public void readData() throws IOException {
         if (jsonFile.exists() || jsonFile.createNewFile()) {
             ObjectMapper objectMapper = new ObjectMapper();
-            dataList = objectMapper.readValue(jsonFile, new TypeReference<List<T>>() {
-            });
+            try {
+                dataList = objectMapper.readValue(jsonFile, new TypeReference<ArrayList<T>>() {
+                });
+            } catch (IOException ignored) {
+                if (dataList == null) {
+                    dataList = new ArrayList<>();
+                }
+            }
         }
     }
 

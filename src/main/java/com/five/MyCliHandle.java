@@ -4,12 +4,13 @@ import com.OneFive.MyCli;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 import java.util.*;
 
 public class MyCliHandle {
     private MyCli myCli;
-    private List<Book> dataList;
+    private final List<Book> dataList;
 
 
     public MyCliHandle(MyCli myCli, List<Book> dataList) {
@@ -25,6 +26,10 @@ public class MyCliHandle {
         this.myCli = myCli;
     }
 
+    public void parseAllOptions(String[] args) throws ParseException {
+        myCli.parseAllOptions(args);
+    }
+
     void initMyCli() {
         // -a/addBook <title> <isbn> <author> <amount>
         myCli.addOption(defineAddOpt(), (values) -> {
@@ -36,6 +41,12 @@ public class MyCliHandle {
         // -d/delBook <isbn>
         myCli.addOption(defineDelOpt(), (values) -> {
             System.out.printf("del a book %s%n", Arrays.toString(values));
+            var iter = dataList.iterator();
+            while (iter.hasNext()) {
+                var book = iter.next();
+                if (book.getIsbn().equals(values[0].toString()));
+                iter.remove();
+            }
         });
 
         // -s/seekBook <title>
