@@ -12,11 +12,15 @@ import java.util.Arrays;
 public class Entry {
     public static void main(String[] args) throws ParseException, IOException {
         MyCli myCli = MyCli.getInstance();
-        MyCliHandle myCliHandle = new MyCliHandle(myCli);
-        myCliHandle.start();
+
+        JsonHandle<Book> jsonHandle = new JsonHandle<>("library.json");
+        jsonHandle.readData();
+
+        MyCliHandle myCliHandle = new MyCliHandle(myCli, jsonHandle.getDataList());
         myCliHandle.initMyCli();
         myCli.parseAllOptions(args);
-        myCliHandle.close();
+
+        jsonHandle.saveData();
     }
 
 }
