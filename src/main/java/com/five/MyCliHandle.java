@@ -34,8 +34,25 @@ public class MyCliHandle {
         // -a/addBook <title> <isbn> <author> <amount>
         myCli.addOption(defineAddOpt(), (values) -> {
             System.out.printf("add a book %s%n", Arrays.toString(values));
-            Book book = new Book(values[0].toString(), values[1].toString(), values[2].toString(), Integer.parseInt(values[3].toString()));
-            dataList.add(book);
+
+            String isbn = values[1].toString();
+            Integer amount = Integer.parseInt(values[3].toString());
+            var iter = dataList.iterator();
+            boolean isHasBook = false;
+            while (iter.hasNext()) {
+                Book book = iter.next();
+                if (book.getIsbn().equals(isbn)) {
+                    isHasBook = true;
+                    book.setTotalAmount(book.getTotalAmount() + amount);
+                    book.setCurrentAmount(book.getCurrentAmount() + amount);
+                    break;
+                }
+            }
+            if (!isHasBook) {
+                Book book = new Book(values[0].toString(), values[1].toString(), values[2].toString(), amount, amount);
+                dataList.add(book);
+            }
+
         });
 
         // -d/delBook <isbn>
@@ -44,8 +61,10 @@ public class MyCliHandle {
             var iter = dataList.iterator();
             while (iter.hasNext()) {
                 var book = iter.next();
-                if (book.getIsbn().equals(values[0].toString()));
-                iter.remove();
+                if (book.getIsbn().equals(values[0].toString())) {
+                    iter.remove();
+                    break;
+                }
             }
         });
 

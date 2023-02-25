@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonHandle<T> {
+public class JsonHandle {
     private final File jsonFile;
-    private ArrayList<T> dataList;
+    private List<Book> dataList;
 
     public JsonHandle(String filePath) {
         jsonFile = new File(filePath);
@@ -21,7 +21,7 @@ public class JsonHandle<T> {
         if (jsonFile.exists() || jsonFile.createNewFile()) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
-                dataList = objectMapper.readValue(jsonFile, new TypeReference<ArrayList<T>>() {
+                dataList = objectMapper.readValue(jsonFile, new TypeReference<List<Book>>() {
                 });
             } catch (IOException ignored) {
                 if (dataList == null) {
@@ -40,7 +40,7 @@ public class JsonHandle<T> {
         }
     }
 
-    public List<T> getDataList() {
+    public List<Book> getDataList() {
         return dataList;
     }
 }
