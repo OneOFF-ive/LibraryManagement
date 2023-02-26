@@ -38,7 +38,7 @@ public class MyCliHandle {
             System.out.printf("add a book %s%n", Arrays.toString(args));
 
             String isbn = args[1].toString();
-            Integer amount = Integer.parseInt(args[3].toString());
+            int amount = Integer.parseInt(args[3].toString());
             var iter = dataList.iterator();
             boolean isHasBook = false;
             while (iter.hasNext()) {
@@ -61,13 +61,13 @@ public class MyCliHandle {
         myCli.addOption(defineDelOpt(), (Object[] args) -> {
             System.out.printf("del a book %s%n", Arrays.toString(args));
 
-            Integer amount = (args.length == 2) ? Integer.parseInt(args[1].toString()) : 0;
+            int amount = (args.length == 2) ? Integer.parseInt(args[1].toString()) : 0;
 
             var iter = dataList.iterator();
             while (iter.hasNext()) {
                 var book = iter.next();
                 if (book.getIsbn().equals(args[0].toString())) {
-                    if (amount.equals(0) && Objects.equals(book.getCurrentAmount(), book.getTotalAmount())) {
+                    if (amount == 0 && Objects.equals(book.getCurrentAmount(), book.getTotalAmount())) {
                         iter.remove();
                     } else if (book.getCurrentAmount() > amount) {
                         book.setTotalAmount(book.getTotalAmount() - amount);
@@ -85,7 +85,7 @@ public class MyCliHandle {
             System.out.printf("seek a book %s%n", Arrays.toString(args));
 
             String info = args[0].toString();
-            for (Book book : dataList) {
+            for (var book : dataList) {
                 if (book.getTitle().equals(info) || book.getIsbn().equals(info)) {
                     System.out.println(book);
                 }
@@ -97,7 +97,7 @@ public class MyCliHandle {
         myCli.addOption(defineReturnOpt(), (Object[] args) -> {
             System.out.printf("return a book %s%n", Arrays.toString(args));
 
-            for (Book book : dataList) {
+            for (var book : dataList) {
                 if (book.getIsbn().equals(args[0].toString()) && book.getCurrentAmount() < book.getTotalAmount()) {
                     book.setCurrentAmount(book.getCurrentAmount() + 1);
                     break;
@@ -110,7 +110,7 @@ public class MyCliHandle {
         myCli.addOption(defineRentOpt(), (Object[] args) -> {
             System.out.printf("rent a book %s%n", Arrays.toString(args));
 
-            for (Book book : dataList) {
+            for (var book : dataList) {
                 if (book.getIsbn().equals(args[0].toString()) && book.getCurrentAmount() > 0) {
                     book.setCurrentAmount(book.getCurrentAmount() - 1);
                     break;

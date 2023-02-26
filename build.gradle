@@ -31,8 +31,10 @@ application {
 test {
     useJUnitPlatform()
 }
-
-task aaa{
+run {
+    standardInput = System.in
+}
+task aaa {
     group = "I'm Five"
     System.out.println("_____________HELLO WORLD_________")
 }

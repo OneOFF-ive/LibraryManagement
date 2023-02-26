@@ -21,7 +21,7 @@ public class JsonHandle {
         if (jsonFile.exists() || jsonFile.createNewFile()) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
-                dataList = objectMapper.readValue(jsonFile, new TypeReference<List<Book>>() {
+                dataList = objectMapper.readValue(jsonFile, new TypeReference<>() {
                 });
             } catch (IOException ignored) {
                 if (dataList == null) {

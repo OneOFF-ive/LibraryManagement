@@ -4,10 +4,10 @@ public class Book {
     private String title;
     private String isbn;
     private String author;
-    private Integer totalAmount;
-    private Integer currentAmount;
+    private int totalAmount;
+    private int currentAmount;
 
-    public Book(String title, String isbn, String author, Integer totalAmount, Integer currentAmount) {
+    public Book(String title, String isbn, String author, int totalAmount, int currentAmount) {
         this.title = title;
         this.isbn = isbn;
         this.author = author;
@@ -15,7 +15,7 @@ public class Book {
         this.currentAmount = currentAmount;
     }
 
-    public Book(String title, String isbn, String author, Integer totalAmount) {
+    public Book(String title, String isbn, String author, int totalAmount) {
         this.title = title;
         this.isbn = isbn;
         this.author = author;
@@ -50,19 +50,19 @@ public class Book {
         this.author = author;
     }
 
-    public Integer getTotalAmount() {
+    public int getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Integer totalAmount) {
+    public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public Integer getCurrentAmount() {
+    public int getCurrentAmount() {
         return currentAmount;
     }
 
-    public void setCurrentAmount(Integer currentAmount) {
+    public void setCurrentAmount(int currentAmount) {
         this.currentAmount = currentAmount;
     }
 
