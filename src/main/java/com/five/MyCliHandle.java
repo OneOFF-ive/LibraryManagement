@@ -9,7 +9,7 @@ import org.apache.commons.cli.ParseException;
 import java.util.*;
 import java.util.function.Consumer;
 
-class MyCliHandle {
+public class MyCliHandle {
     private MyCli myCli;
     private final List<Book> dataList;
     private boolean shouldQuit;
