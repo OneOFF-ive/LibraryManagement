@@ -9,7 +9,7 @@ import org.apache.commons.cli.ParseException;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class MyCliHandle implements AddOptionAble{
+class MyCliHandle {
     private MyCli myCli;
     private final List<Book> dataList;
     private boolean shouldQuit;
@@ -206,7 +206,6 @@ public class MyCliHandle implements AddOptionAble{
         return new Option("q", "quit", false, "quit interactive interface");
     }
 
-    @Override
     public void addOption(Option option, Consumer<Object[]> callback) {
         myCli.addOption(option, callback);
     }

@@ -20,6 +20,9 @@ public class Entry {
             if (args.length == 0) {
                 args = new String[]{"-e"};
             }
+
+
+
             myCliHandle.parseAllOptions(args);
 
             jsonHandle.saveData();

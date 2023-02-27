@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonHandle {
+class JsonHandle {
     private final File jsonFile;
     private List<Book> dataList;
 
@@ -17,7 +17,7 @@ public class JsonHandle {
         jsonFile = new File(filePath);
     }
 
-    public void readData() throws IOException {
+    void readData() throws IOException {
         if (jsonFile.exists() || jsonFile.createNewFile()) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
@@ -31,7 +31,7 @@ public class JsonHandle {
         }
     }
 
-    public void saveData() throws IOException {
+    void saveData() throws IOException {
         if (jsonFile.exists() || jsonFile.createNewFile()) {
             ObjectMapper objectMapper = new ObjectMapper();
             FileOutputStream fileOutputStream = new FileOutputStream(jsonFile, false);
