@@ -2,10 +2,11 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
     id 'application'
+    id 'maven-publish'
 }
 
 group 'com.five'
-version '1.0'
+version '1.0.0'
 
 repositories {
     mavenLocal()
@@ -22,6 +23,14 @@ dependencies {
     implementation 'commons-cli:commons-cli:1.5.0'
     implementation 'com.github.OneOFF-ive:commons-cli-OneFive:v2.0.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
 }
 
 application {
