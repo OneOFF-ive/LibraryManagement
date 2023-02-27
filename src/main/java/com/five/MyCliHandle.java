@@ -15,21 +15,21 @@ public class MyCliHandle implements AddOptionAble{
     private boolean shouldQuit;
 
 
-    public MyCliHandle(MyCli myCli, List<Book> dataList) {
+    MyCliHandle(MyCli myCli, List<Book> dataList) {
         this.myCli = myCli;
         this.dataList = dataList;
         shouldQuit = false;
     }
 
-    public MyCli getMyCli() {
+    MyCli getMyCli() {
         return myCli;
     }
 
-    public void setMyCli(MyCli myCli) {
+    void setMyCli(MyCli myCli) {
         this.myCli = myCli;
     }
 
-    public void parseAllOptions(String[] args) throws ParseException {
+    void parseAllOptions(String[] args) throws ParseException {
         myCli.parseAllOptions(args);
     }
 
