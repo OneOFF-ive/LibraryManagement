@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class JsonHandle<T> {
+public class JsonHandle<T> {
     private final File jsonFile;
     private List<T> dataList;
     private final TypeReference<List<T>> typeRef;
