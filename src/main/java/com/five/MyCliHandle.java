@@ -20,19 +20,19 @@ public class MyCliHandle {
         shouldQuit = false;
     }
 
-    MyCli getMyCli() {
+    public MyCli getMyCli() {
         return myCli;
     }
 
-    void setMyCli(MyCli myCli) {
+    public void setMyCli(MyCli myCli) {
         this.myCli = myCli;
     }
 
-    void parseAllOptions(String[] args) throws ParseException {
+    public void parseAllOptions(String[] args) throws ParseException {
         myCli.parseAllOptions(args);
     }
 
-    void initMyCli() {
+    public void initMyCli() {
         // -a/addBook <title> <isbn> <author> <amount>
         myCli.addOption(defineAddOpt(), (Object[] args) -> {
             System.out.printf("add a book %s%n", Arrays.toString(args));
@@ -126,6 +126,7 @@ public class MyCliHandle {
             formatter.printHelp("ant", options);
         });
 
+        // -e/enter
         myCli.addOption(defineEnterOpt(), (Object[] args) -> {
             Scanner scanner = new Scanner(System.in);
 
@@ -135,12 +136,13 @@ public class MyCliHandle {
                 try {
                     myCli.parseAllOptions(newArgs);
                 } catch (ParseException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
 
         });
 
+        // -q/quit
         myCli.addOption(defineQuitOpt(), (Object[] args) -> {
             shouldQuit = true;
         });

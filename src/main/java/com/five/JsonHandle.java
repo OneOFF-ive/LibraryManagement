@@ -32,7 +32,7 @@ public class JsonHandle<T> {
         }
     }
 
-    void saveData() throws IOException {
+    public void saveData() throws IOException {
         if (jsonFile.exists() || jsonFile.createNewFile()) {
             ObjectMapper objectMapper = new ObjectMapper();
             FileOutputStream fileOutputStream = new FileOutputStream(jsonFile, false);

@@ -8,7 +8,4 @@ public class PluginInfo {
         this.name = name;
         this.mainClass = mainClass;
     }
-
-    public PluginInfo() {
-    }
 }
