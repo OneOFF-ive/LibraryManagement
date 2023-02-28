@@ -21,7 +21,7 @@ public class Entry {
 
         var pluginsManager = new PluginsManager();
         pluginsManager.loadPlugins(pluginsManager.getOrCreatePluginsFolder().listFiles());
-        var plugins = pluginsManager.getPlugins();
+        var pluginList = pluginsManager.getPluginList();
 
         MyCli myCli = MyCli.getInstance();
         JsonHandle<Book> jsonHandle = new JsonHandle<>("library.json", new TypeReference<List<Book>>() {
@@ -33,7 +33,7 @@ public class Entry {
             MyCliHandle myCliHandle = new MyCliHandle(myCli, jsonHandle.getDataList());
             myCliHandle.initMyCli();
 
-            for (var plugin : plugins) {
+            for (var plugin : pluginList) {
                 plugin.server(myCliHandle);
             }
 

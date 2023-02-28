@@ -9,16 +9,18 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.security.ProtectionDomain;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class PluginsManager {
-    private final List<PluginService> plugins;
+    private final Map<String, PluginService> plugins;
     private final File pluginsFolder;
 
-    public List<PluginService> getPlugins() {
+    public Map<String, PluginService> getPlugins() {
         return plugins;
+    }
+
+    public List<PluginService> getPluginList() {
+        return new ArrayList<PluginService>(plugins.values());
     }
 
     public File getPluginsFolder() {
@@ -26,7 +28,7 @@ public class PluginsManager {
     }
 
     public PluginsManager() throws URISyntaxException {
-        plugins = new ArrayList<>();
+        plugins = new HashMap<>();
         pluginsFolder = getOrCreatePluginsFolder();
         System.out.println("Plugin folder is " + pluginsFolder);
     }
@@ -49,7 +51,7 @@ public class PluginsManager {
 
                 Class<?> clazz = clzLoader.loadClass(info.mainClass);
                 var plugin = (PluginService) clazz.getDeclaredConstructor().newInstance();
-                plugins.add(plugin);
+                plugins.put(info.name, plugin);
                 System.out.println("Loaded plugin[" + info.name + "]");
             } catch (Exception e) {
                 e.printStackTrace();
