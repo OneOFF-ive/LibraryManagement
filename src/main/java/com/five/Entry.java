@@ -1,19 +1,21 @@
 package com.five;
 
 import com.OneFive.MyCli;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.List;
 
 
 public class Entry {
     public static void main(String[] args) {
 
         MyCli myCli = MyCli.getInstance();
-        JsonHandle jsonHandle = new JsonHandle("library.json");
+        JsonHandle<Book> jsonHandle = new JsonHandle<>("library.json", new TypeReference<List<Book>>() {});
 
         try {
             jsonHandle.readData();

@@ -38,21 +38,28 @@ public class MyCliHandle {
         myCli.addOption(defineAddOpt(), (Object[] args) -> {
             System.out.printf("add a book %s%n", Arrays.toString(args));
 
+            System.out.println(dataList.get(0).getClass());
+
             String isbn = args[1].toString();
             int amount = Integer.parseInt(args[3].toString());
             var iter = dataList.iterator();
             boolean isHasBook = false;
+
+            System.out.println("test2");
+
             while (iter.hasNext()) {
                 Book book = iter.next();
                 if (book.getIsbn().equals(isbn)) {
                     isHasBook = true;
                     book.setTotalAmount(book.getTotalAmount() + amount);
                     book.setCurrentAmount(book.getCurrentAmount() + amount);
+                    System.out.println("test3");
                     break;
                 }
             }
             if (!isHasBook) {
                 Book book = new Book(args[0].toString(), args[1].toString(), args[2].toString(), amount, amount);
+                System.out.println("test4");
                 dataList.add(book);
             }
 
