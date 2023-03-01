@@ -1,5 +1,10 @@
 package com.five;
 
+import com.fasterxml.jackson.annotation.JacksonAnnotation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Objects;
+
 public class Book {
     private String title;
     private String isbn;
@@ -66,6 +71,11 @@ public class Book {
         this.currentAmount = currentAmount;
     }
 
+    @JsonIgnore
+    public boolean isRented() {
+        return currentAmount != totalAmount;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -75,5 +85,18 @@ public class Book {
                 ", totalAmount=" + totalAmount +
                 ", currentAmount=" + currentAmount +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book data = (Book) o;
+        return isbn.equals(data.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn);
     }
 }

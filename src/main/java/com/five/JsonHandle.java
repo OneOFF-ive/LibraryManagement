@@ -11,7 +11,6 @@ import java.util.List;
 
 public class JsonHandle<T> {
     private final File jsonFile;
-    private List<T> dataList;
     private final TypeReference<List<T>> typeRef;
 
     public JsonHandle(String filePath, TypeReference<List<T>> typeRef) {
@@ -19,29 +18,24 @@ public class JsonHandle<T> {
         this.typeRef = typeRef;
     }
 
-    public void readData() throws IOException {
+    public List<T> readFile() throws IOException {
+        List<T> dataList = new ArrayList<>();
         if (jsonFile.exists() || jsonFile.createNewFile()) {
             ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                dataList = objectMapper.readValue(jsonFile, typeRef);
-            } catch (IOException ignored) {
-                if (dataList == null) {
-                    dataList = new ArrayList<>();
-                }
+            if (jsonFile.length() == 0) {
+                dataList.addAll(objectMapper.readValue("[]", typeRef));
             }
+            else dataList.addAll(objectMapper.readValue(jsonFile, typeRef));
         }
+        return dataList;
     }
 
-    public void saveData() throws IOException {
+    public void writeFile(List<T> dataList) throws IOException {
         if (jsonFile.exists() || jsonFile.createNewFile()) {
             ObjectMapper objectMapper = new ObjectMapper();
             FileOutputStream fileOutputStream = new FileOutputStream(jsonFile, false);
             objectMapper.writeValue(fileOutputStream, dataList);
             fileOutputStream.close();
         }
-    }
-
-    public List<T> getDataList() {
-        return dataList;
     }
 }

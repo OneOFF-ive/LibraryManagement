@@ -46,17 +46,17 @@ public class MyCliHandle {
             boolean isHasBook = false;
 
             while (iter.hasNext()) {
-                Book book = iter.next();
-                if (book.getIsbn().equals(isbn)) {
+                Book data = iter.next();
+                if (data.getIsbn().equals(isbn)) {
                     isHasBook = true;
-                    book.setTotalAmount(book.getTotalAmount() + amount);
-                    book.setCurrentAmount(book.getCurrentAmount() + amount);
+                    data.setTotalAmount(data.getTotalAmount() + amount);
+                    data.setCurrentAmount(data.getCurrentAmount() + amount);
                     break;
                 }
             }
             if (!isHasBook) {
-                Book book = new Book(args[0].toString(), args[1].toString(), args[2].toString(), amount, amount);
-                dataList.add(book);
+                Book data = new Book(args[0].toString(), args[1].toString(), args[2].toString(), amount, amount);
+                dataList.add(data);
             }
 
         });

@@ -16,29 +16,47 @@ public class Entry {
         pluginsManager.loadPlugins(pluginsManager.getOrCreatePluginsFolder().listFiles());
         var pluginList = pluginsManager.getPluginList();
 
-        MyCli myCli = MyCli.getInstance();
-        JsonHandle<Book> jsonHandle = new JsonHandle<>("library.json", new TypeReference<List<Book>>() {
-        });
-
+        Application application = new Application();
         try {
-            jsonHandle.readData();
-
-            MyCliHandle myCliHandle = new MyCliHandle(myCli, jsonHandle.getDataList());
-            myCliHandle.initMyCli();
+            application.initMyCli();
 
             for (var plugin : pluginList) {
-                plugin.server(myCliHandle);
+                plugin.server(application);
             }
 
             if (args.length == 0) {
                 args = new String[]{"-e"};
             }
-            myCliHandle.parseAllOptions(args);
 
-            jsonHandle.saveData();
-        } catch (IOException | ParseException e) {
+            application.run(args);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+
+//        MyCli myCli = MyCli.getInstance();
+//
+//        JsonHandle<Book> jsonHandle = new JsonHandle<>("library.json", new TypeReference<List<Book>>() {
+//        });
+//
+//        try {
+//            jsonHandle.readFile();
+//
+//            MyCliHandle myCliHandle = new MyCliHandle(myCli, jsonHandle.getDataList());
+//            myCliHandle.initMyCli();
+//
+//            for (var plugin : pluginList) {
+//                plugin.server(myCliHandle);
+//            }
+//
+//            if (args.length == 0) {
+//                args = new String[]{"-e"};
+//            }
+//            myCliHandle.parseAllOptions(args);
+//
+//            jsonHandle.writeFile();
+//        } catch (IOException | ParseException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

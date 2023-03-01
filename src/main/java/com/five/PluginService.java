@@ -1,5 +1,5 @@
 package com.five;
 
 public interface PluginService {
-    void server(MyCliHandle handle);
+    void server(Application application);
 }
