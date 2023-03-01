@@ -37,6 +37,11 @@ public class JsonDataAccessImpl implements DataAccess {
     }
 
     @Override
+    public Set<Book> getAllData() {
+        return dataList;
+    }
+
+    @Override
     public void saveData() {
         try {
             jsonHandle.writeFile(dataList.stream().toList());

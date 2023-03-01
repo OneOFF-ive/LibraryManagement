@@ -1,6 +1,7 @@
 package com.five.manager;
 
 import com.five.Book;
+import com.five.data.DataAccess;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface BookManager {
     void rentBook(String isbn);
     void startup();
     void shutdown();
+    DataAccess getDataAccess();
+    void setDataAccess(DataAccess dataAccess);
 }

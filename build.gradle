@@ -6,7 +6,15 @@ plugins {
 }
 
 group 'com.five'
-version '1.0.0'
+version '2.1.0'
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
 
 repositories {
     mavenLocal()
@@ -25,10 +33,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
 }
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
+
 publishing {
     publications {
         maven(MavenPublication) {
