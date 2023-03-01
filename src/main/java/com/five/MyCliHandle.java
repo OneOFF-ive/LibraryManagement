@@ -20,6 +20,10 @@ public class MyCliHandle {
         shouldQuit = false;
     }
 
+    public List<Book> getDataList() {
+        return dataList;
+    }
+
     public MyCli getMyCli() {
         return myCli;
     }
