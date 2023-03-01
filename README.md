@@ -17,4 +17,6 @@ public interface PluginService {
   "mainClass": "library.plugin.LibraryDisplayPlugin"
 }
 ```  
-其中name表示插件名称，mainClass表示主类名称
+其中name表示插件名称，mainClass表示主类名称  
+  
+2023/3/1项目基本实现，接下来将为该项目开发插件[LibraryManagement_plugins](https://github.com/OneOFF-ive/LibraryManagement_plugins)
