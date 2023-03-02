@@ -1,6 +1,5 @@
 package com.five;
 
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Objects;
