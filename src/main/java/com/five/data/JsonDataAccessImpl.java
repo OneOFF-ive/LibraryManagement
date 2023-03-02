@@ -75,6 +75,11 @@ public class JsonDataAccessImpl implements DataAccess {
     }
 
     @Override
+    public List<Book> getAllData() {
+        return dataList.stream().toList();
+    }
+
+    @Override
     public void updateData(Book book) {
         if (dataList.remove(book)) {
             dataList.add(book);
