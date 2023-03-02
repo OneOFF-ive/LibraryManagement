@@ -1,4 +1,4 @@
-package com.five;
+package com.five.plugin;
 
 public class PluginInfo {
     String name;

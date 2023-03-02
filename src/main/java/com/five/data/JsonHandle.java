@@ -1,4 +1,4 @@
-package com.five;
+package com.five.data;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

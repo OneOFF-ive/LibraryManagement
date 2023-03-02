@@ -1,5 +1,6 @@
-package com.five;
+package com.five.plugin;
 
+import com.five.Entry;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -59,7 +60,7 @@ public class PluginsManager {
         }
     }
 
-    File getOrCreatePluginsFolder() throws URISyntaxException {
+    public File getOrCreatePluginsFolder() throws URISyntaxException {
         ProtectionDomain domain = Entry.class.getProtectionDomain();
         File selfPath = new File(domain.getCodeSource().getLocation().toURI().getPath());
         File pluginFolder = new File(selfPath.getParent(), "plugins");
