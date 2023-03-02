@@ -12,5 +12,4 @@ public interface DataAccess {
    void updateData(Book data);
    void saveData();
    void readData();
-   Set<Book> getAllData();
 }

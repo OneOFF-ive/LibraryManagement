@@ -19,4 +19,35 @@ public interface PluginService {
 ```  
 其中name表示插件名称，mainClass表示主类名称  
   
-2023/3/1项目基本实现，接下来将为该项目开发插件[LibraryManagement_plugins](https://github.com/OneOFF-ive/LibraryManagement_plugins)
+2023/3/1 项目基本实现，接下来将为该项目开发插件[LibraryManagement_plugins](https://github.com/OneOFF-ive/LibraryManagement_plugins)
+
+2023/3/2 项目重构，抽象出数据接入层和数据处理层，使该项目可以适配任何数据库，用户可以根据自己的需求开发插件，使该项目使用自定义的数据来源。  
+  
+数据接入层接口
+```java
+public interface DataAccess {
+   void insertData(Book data);
+   void removeData(String isbn);
+   List<Book> getDataBy(String field, Object condition);
+   void updateData(Book data);
+   void saveData();
+   void readData();
+}
+```
+
+数据处理层接口  
+```java
+public interface BookManager {
+    void insertBook(Book book);
+    void removeBook(String isbn);
+    List<Book> seekBook(String prompt);
+    void returnBook(String isbn);
+    void rentBook(String isbn);
+    void startup();
+    void shutdown();
+    DataAccess getDataAccess();
+    void setDataAccess(DataAccess dataAccess);
+} 
+```  
+可以使用不同的数据源实现DataAccess接口，并通过BookManage的setDataAccess更改项目的数据源；也可以根据需求实现BookManager，使用Application的setBookManager修改项目数据处理层，实现更多功能。
+
