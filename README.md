@@ -26,12 +26,13 @@ public interface PluginService {
 数据接入层接口
 ```java
 public interface DataAccess {
-   void insertData(Book data);
-   void removeData(String isbn);
-   List<Book> getDataBy(String field, Object condition);
-   void updateData(Book data);
-   void saveData();
-   void readData();
+    void insertData(Book data);
+    void removeData(String isbn);
+    List<Book> getDataBy(String field, Object condition);
+    List<Book> getAllData();
+    void updateData(Book data);
+    void saveData();
+    void readData();
 }
 ```
 
