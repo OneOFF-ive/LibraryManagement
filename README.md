@@ -19,7 +19,7 @@ public interface PluginService {
 ```  
 其中name表示插件名称，mainClass表示主类名称  
   
-2023/3/1 项目基本实现，接下来将为该项目开发插件[LibraryManagement_plugins](https://github.com/OneOFF-ive/LibraryManagement_plugins)
+2023/3/1 项目功能基本实现，接下来将为该项目开发插件[LibraryManagement_plugins](https://github.com/OneOFF-ive/LibraryManagement_plugins)
 
 2023/3/2 项目重构，抽象出数据接入层和数据处理层，使该项目可以适配任何数据库，用户可以根据自己的需求开发插件，使该项目使用自定义的数据来源。  
   
