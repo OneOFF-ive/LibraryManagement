@@ -24,6 +24,7 @@ public class Book {
         this.isbn = isbn;
         this.author = author;
         this.totalAmount = totalAmount;
+        this.currentAmount = totalAmount;
     }
 
     public Book() {

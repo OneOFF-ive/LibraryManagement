@@ -49,7 +49,7 @@ public class Application {
         myCli.addOption(DefaultOptions.AddOpt(), (Object[] args) -> {
             System.out.printf("add a book %s%n", Arrays.toString(args));
             int amount = Integer.parseInt(args[3].toString());
-            Book book = new Book(args[0].toString(), args[1].toString(), args[2].toString(), amount, amount);
+            Book book = new Book(args[0].toString(), args[1].toString(), args[2].toString(), amount);
 
             bookManager.insertBook(book);
         });
