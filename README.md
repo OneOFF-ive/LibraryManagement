@@ -1,6 +1,8 @@
 # LibraryManagement
 Java基础语法练习&&gradle的基础使用方法练习  
 
+该项目依赖于[commons-cli-OneFive](https://github.com/OneOFF-ive/commons-cli-OneFive),这是本人封装的一个命令行解析工具。
+
 2023/2/26 该项目完成了最基本的功能，实现了用命令行指令完成对书本的增删查改，数据用一个json储存。  
 
 2023/2/28 该项目实现了插件化。程序可以动态的加载插件，只需要在jar包的同目录下创建plugins文件夹并且将插件放入其中，程序会动态加载插件。  
