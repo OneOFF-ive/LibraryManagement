@@ -48,6 +48,19 @@ public class BookManagerFromJson implements BookManager{
     }
 
     @Override
+    public void removeBooks(String isbn, int amount) {
+        var res = dataAccess.getDataBy("isbn", isbn);
+        if (!res.isEmpty()) {
+            Book oldBook = res.get(0);
+            if (oldBook.getCurrentAmount() >= amount) {
+                oldBook.setTotalAmount(oldBook.getTotalAmount() - amount);
+                oldBook.setCurrentAmount(oldBook.getCurrentAmount() - amount);
+                dataAccess.updateData(oldBook);
+            }
+        }
+    }
+
+    @Override
     public List<Book> seekBook(String prompt) {
         Set<Book> res = new HashSet<>();
         res.addAll(dataAccess.getDataBy("isbn", prompt));
@@ -61,7 +74,7 @@ public class BookManagerFromJson implements BookManager{
         if (!res.isEmpty()) {
             Book oldBook = res.get(0);
             if (oldBook.isRented()) {
-                oldBook.setCurrentAmount(oldBook.getTotalAmount() + 1);
+                oldBook.setCurrentAmount(oldBook.getCurrentAmount() + 1);
                 dataAccess.updateData(oldBook);
             }
         }

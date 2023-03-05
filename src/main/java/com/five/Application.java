@@ -59,7 +59,11 @@ public class Application {
             System.out.printf("del a book %s%n", Arrays.toString(args));
 
             String isbn = args[0].toString();
-            bookManager.removeBook(isbn);
+            if (Objects.equals(args.length, 2)) {
+                int amount = Integer.parseInt(args[1].toString());
+                bookManager.removeBooks(isbn, amount);
+            }
+            else bookManager.removeBook(isbn);
         });
 
         // -s/seekBook <title/isbn>

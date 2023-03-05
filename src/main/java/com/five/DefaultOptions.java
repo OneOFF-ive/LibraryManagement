@@ -26,7 +26,7 @@ public class DefaultOptions {
     public static Option SeekOpt() {
         return Option.builder("s")
                 .longOpt("seekBook")
-                .argName("title")
+                .argName("title/isbn")
                 .hasArg()
                 .desc("Seek a book from library")
                 .build();
