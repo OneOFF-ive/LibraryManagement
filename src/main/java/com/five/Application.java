@@ -72,7 +72,9 @@ public class Application {
             String info = args[0].toString();
 
             var res = bookManager.seekBook(info);
-            System.out.println(res);
+            for (var item : res) {
+                System.out.println(item);
+            }
         });
 
         // -rt/returnBook <isbn>
