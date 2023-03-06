@@ -34,7 +34,7 @@ dependencies {
     implementation 'commons-cli:commons-cli:1.5.0'
     implementation 'com.github.OneOFF-ive:commons-cli-OneFive:v2.0.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.1'
 }
 
 publishing {
