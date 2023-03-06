@@ -27,7 +27,7 @@ public class JsonDataAccessImpl implements DataAccess {
     }
 
     @Override
-    public void readData() {
+    public void close() {
         try {
             dataList.addAll(jsonHandle.readFile());
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class JsonDataAccessImpl implements DataAccess {
     }
 
     @Override
-    public void saveData() {
+    public void open() {
         try {
             jsonHandle.writeFile(dataList.stream().toList());
         } catch (IOException e) {

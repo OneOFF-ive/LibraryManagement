@@ -94,11 +94,11 @@ public class BookManagerFromJson implements BookManager{
 
     @Override
     public void startup() {
-        dataAccess.readData();
+        dataAccess.close();
     }
 
     @Override
     public void shutdown() {
-        dataAccess.saveData();
+        dataAccess.open();
     }
 }

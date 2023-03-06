@@ -10,6 +10,6 @@ public interface DataAccess {
    List<Book> getDataBy(String field, Object condition);
    List<Book> getAllData();
    void updateData(Book data);
-   void saveData();
-   void readData();
+   void open();
+   void close();
 }
