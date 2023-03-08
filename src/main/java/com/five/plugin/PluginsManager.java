@@ -21,7 +21,7 @@ public class PluginsManager {
     }
 
     public List<PluginService> getPluginList() {
-        return new ArrayList<PluginService>(plugins.values());
+        return new ArrayList<>(plugins.values());
     }
 
     public File getPluginsFolder() {
@@ -53,7 +53,7 @@ public class PluginsManager {
                 Class<?> clazz = clzLoader.loadClass(info.mainClass);
                 var plugin = (PluginService) clazz.getDeclaredConstructor().newInstance();
                 plugins.put(info.name, plugin);
-                System.out.println("Loaded plugin[" + info.name + "]");
+                System.out.println("Loaded plugin [" + info.name + "]");
             } catch (Exception e) {
                 e.printStackTrace();
             }

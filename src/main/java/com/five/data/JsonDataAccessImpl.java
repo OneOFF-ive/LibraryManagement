@@ -14,7 +14,7 @@ public class JsonDataAccessImpl implements DataAccess {
 
     public JsonDataAccessImpl(String filePath) {
         this.filePath = filePath;
-        dataList = new HashSet<>();
+        dataList = Collections.synchronizedSet(new HashSet<>());
         jsonHandle = new JsonHandle<>(filePath, new TypeReference<List<Book>>() {});
     }
 
@@ -27,7 +27,7 @@ public class JsonDataAccessImpl implements DataAccess {
     }
 
     @Override
-    public void close() {
+    public void open() {
         try {
             dataList.addAll(jsonHandle.readFile());
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class JsonDataAccessImpl implements DataAccess {
     }
 
     @Override
-    public void open() {
+    public void close() {
         try {
             jsonHandle.writeFile(dataList.stream().toList());
         } catch (IOException e) {
