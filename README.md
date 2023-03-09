@@ -52,5 +52,20 @@ public interface BookManager {
     void setDataAccess(DataAccess dataAccess);
 } 
 ```  
-可以使用不同的数据源实现DataAccess接口，并通过BookManage的setDataAccess更改项目的数据源；也可以根据需求实现BookManager，使用Application的setBookManager修改项目数据处理层，实现更多功能。
+可以使用不同的数据源实现DataAccess接口，并通过BookManage的setDataAccess更改项目的数据源；也可以根据需求实现BookManager，使用Application的setBookManager修改项目数据处理层，实现更多功能。  
+  
+2023/3/9 对插件管理器进行了更新，新增一个config目录，用来管理插件的配置信息，并通过插件接口将配置文件注入插件的实现类中
+```java
+try {
+    var ctor = clazz.getDeclaredConstructor(PluginContext.class);
+    var config = resolvePluginConfig(info.configFileName);
+    var ctx = new PluginContext(info, config, this);
+    plugin = (IPlugin) ctor.newInstance(ctx);
+} catch (NoSuchMethodException e) {
+    try {
+        var ctor = clazz.getDeclaredConstructor();
+        plugin = (IPlugin) ctor.newInstance();
+    } catch (NoSuchMethodException ignored) {}
+}
+```
 
