@@ -1,6 +1,6 @@
 package com.five;
 
-import com.five.plugin.PluginsManager;
+import com.five.plugin.PluginManager;
 import com.five.utils.Timer;
 import org.apache.commons.cli.*;
 
@@ -10,8 +10,8 @@ import java.net.URISyntaxException;
 public class Entry {
     public static void main(String[] args) throws URISyntaxException {
 
-        var pluginsManager = new PluginsManager();
-        pluginsManager.loadPlugins(pluginsManager.getOrCreatePluginsFolder().listFiles());
+        var pluginsManager = new PluginManager();
+        pluginsManager.loadPlugins(pluginsManager.getPluginsFolder().listFiles());
         var plugins = pluginsManager.getPlugins();
 
         Application application = new Application();
@@ -24,7 +24,7 @@ public class Entry {
                 var timer = new Timer();
                 System.out.println("[" + name + "] starts initialization.");
                 timer.start();
-                plugin.server(application);
+                plugin.apply(application);
                 timer.end();
                 System.out.println("[" + name + "] initialized in " + timer.getPrettyOutput() + ".");
             }
