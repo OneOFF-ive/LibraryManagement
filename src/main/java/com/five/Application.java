@@ -16,7 +16,7 @@ public class Application {
     private boolean shouldQuit;
     private BookManager bookManager;
 
-    Application() {
+    public Application() {
         this.myCli = MyCli.getInstance();
         bookManager = new BookManagerFromJson();
         shouldQuit = false;
