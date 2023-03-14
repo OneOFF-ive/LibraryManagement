@@ -1,6 +1,9 @@
 package com.five.plugin;
 
+import com.five.Application;
+import com.five.logger.Logger;
 import com.five.utils.Fs;
+import com.five.utils.Timer;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -35,7 +38,7 @@ public class PluginManager implements IPluginManager {
         plugins = new HashMap<>();
         pluginsFolder = Fs.getOrCreatePluginsFolder();
         configFolder = Fs.getOrCreateConfigFolder();
-        System.out.println("Plugin folder is " + pluginsFolder);
+        Logger.info("Plugin folder is " + pluginsFolder);
     }
 
     public void loadPlugins(File[] files) {
@@ -43,7 +46,7 @@ public class PluginManager implements IPluginManager {
         Gson gson = new Gson();
         if (files == null) return;
         for (var pluginFile : files) {
-            System.out.println("Loading plugin " + pluginFile);
+            Logger.info("Loading plugin " + pluginFile);
             try {
                 var clzLoader = URLClassLoader.newInstance(new URL[]{
                         pluginFile.toURI().toURL()
@@ -68,16 +71,30 @@ public class PluginManager implements IPluginManager {
                 }
                 if (plugin != null) {
                     plugins.put(info.name, plugin);
-                    System.out.println("Loaded plugin [" + info.name + "]");
+                    Logger.info("Loaded plugin [" + info.name + "]");
                 } else {
-                    System.out.println("Plugin [" + info.name + "] constructor failed");
+                    Logger.warn("Plugin [" + info.name + "] constructor failed");
                 }
             } catch (Exception e) {
+                Logger.error("Load error");
                 e.printStackTrace();
             }
         }
     }
 
+    public void initPlugins(Application application) {
+        for (var entry : plugins.entrySet()) {
+            var name = entry.getKey();
+            var plugin = entry.getValue();
+            var timer = new Timer();
+            Logger.info("[" + name + "] starts initialization.");
+            timer.start();
+            plugin.apply(application);
+            timer.end();
+            Logger.info("[" + name + "] initialized in " + timer.getPrettyOutput() + ".");
+        }
+        Logger.info("All plugins are initialized.");
+    }
 
 }
 

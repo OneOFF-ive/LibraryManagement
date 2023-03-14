@@ -1,5 +1,7 @@
 package com.five.data;
 
+import com.five.Book;
+
 import java.util.List;
 
 public interface DataAccess {

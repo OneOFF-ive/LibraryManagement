@@ -1,4 +1,4 @@
-package com.five.data;
+package com.five;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
