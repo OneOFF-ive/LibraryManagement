@@ -1,4 +1,6 @@
-package com.five;
+package com.five.utils;
+
+import com.five.Entry;
 
 import java.io.File;
 import java.net.URISyntaxException;

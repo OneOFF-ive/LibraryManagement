@@ -1,6 +1,7 @@
 package com.five;
 
 import com.OneFive.MyCli;
+import com.five.data.Book;
 import com.five.manager.BookManager;
 import com.five.manager.BookManagerFromJson;
 import org.apache.commons.cli.HelpFormatter;

@@ -1,6 +1,6 @@
 package com.five.plugin;
 
-import com.five.Fs;
+import com.five.utils.Fs;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -19,10 +19,6 @@ public class PluginManager implements IPluginManager {
     @Override
     public Map<String, IPlugin> getPlugins() {
         return plugins;
-    }
-
-    public List<IPlugin> getPluginList() {
-        return new ArrayList<>(plugins.values());
     }
 
     @Override
