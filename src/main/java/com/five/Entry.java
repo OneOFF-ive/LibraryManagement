@@ -23,7 +23,7 @@ public class Entry {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        pluginsManager.closePlugins();
     }
 
 

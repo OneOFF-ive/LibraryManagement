@@ -96,5 +96,18 @@ public class PluginManager implements IPluginManager {
         Logger.info("All plugins are initialized.");
     }
 
+    public void closePlugins() {
+        for (var entry : plugins.entrySet()) {
+            var name = entry.getKey();
+            var plugin = entry.getValue();
+            var timer = new Timer();
+            Logger.info("[" + name + "] starts close.");
+            timer.start();
+            plugin.close();
+            timer.end();
+            Logger.info("[" + name + "] closed in " + timer.getPrettyOutput() + ".");
+        }
+        Logger.info("All plugins are closed.");
+    }
 }
 
